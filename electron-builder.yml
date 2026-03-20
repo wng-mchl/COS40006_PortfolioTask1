@@ -1,0 +1,52 @@
+# electron-builder.yml
+appId: com.104381424.financeapp
+productName: Finance Tracker
+copyright: "Copyright 2026"
+directories:
+  output: dist-packages  
+files:
+  - out/**/*              
+  - resources/**/*        
+
+# Windows build
+win:
+  icon: resources/finance-icon.ico 
+  executableName: Finance Tracker 
+  target:
+    - target: nsis
+      arch: [x64]
+    - target: msi
+      arch: [x64]
+    artifactName: "${productName}-Setup-${version}.${ext}"
+      
+
+nsis:
+  oneClick: false  
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: "Finance Tracker"
+
+msi:
+  oneClick: false
+  perMachine: true  
+
+mac:
+  icon: resources/finance-icon.png
+  category: public.app-category.finance
+  target:
+    - target: dmg
+      arch: [x64, arm64] 
+
+dmg:
+  window:
+    width: 1920
+    height: 1080
+
+linux:
+  icon: resources/finance-icon.png
+  target:
+    - deb
+    - AppImage
+  executableName: Finance Tracker 
+
