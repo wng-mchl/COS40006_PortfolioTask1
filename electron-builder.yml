@@ -1,6 +1,6 @@
 # electron-builder.yml
 appId: com.104381424.financeapp
-productName: Finance Tracker
+productName: Finance-Tracker
 copyright: "Copyright 2026"
 directories:
   output: dist-packages  
@@ -11,7 +11,7 @@ files:
 # Windows build
 win:
   icon: resources/finance-icon.ico 
-  executableName: Finance Tracker 
+  executableName: Finance-Tracker 
   target:
     - target: nsis
       arch: [x64]
