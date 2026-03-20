@@ -13,3 +13,4 @@ function SummaryCard({ title, value }: Props) {
 }
 
 export default SummaryCard;
+

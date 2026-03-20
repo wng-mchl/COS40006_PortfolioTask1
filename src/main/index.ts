@@ -1,4 +1,6 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { autoUpdater } from 'electron-updater'
+import { dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -9,7 +11,7 @@ function createWindow(): void {
     width: 900,
     height: 670,
     show: false,
-    title:"Finance Tracker",
+    title: "Finance Tracker",
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
@@ -54,6 +56,45 @@ app.whenReady().then(() => {
   ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
+  autoUpdater.checkForUpdates();
+
+  autoUpdater.on("checking-for-update", () => {
+    console.log("Checking for update...");
+  });
+
+  autoUpdater.on("update-available", () => {
+    dialog.showMessageBox({
+      type: "info",
+      title: "Update Available",
+      message: "A new version is available. Download now?",
+      buttons: ["Yes", "No"],
+    }).then((result) => {
+      if (result.response === 0) {
+        autoUpdater.downloadUpdate();
+      }
+    });
+  });
+
+  autoUpdater.on("update-not-available", () => {
+    console.log("No updates available.");
+  });
+
+  autoUpdater.on("download-progress", (progress) => {
+    console.log(`Downloading: ${Math.round(progress.percent)}%`);
+  });
+  
+  autoUpdater.on("update-downloaded", () => {
+    dialog.showMessageBox({
+      type: "info",
+      title: "Update Ready",
+      message: "Update downloaded. Restart now?",
+      buttons: ["Restart", "Later"],
+    }).then((result) => {
+      if (result.response === 0) {
+        autoUpdater.quitAndInstall();
+      }
+    });
+  });
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the

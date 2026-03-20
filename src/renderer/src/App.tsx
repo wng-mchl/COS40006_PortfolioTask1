@@ -81,7 +81,8 @@ function App() {
   return (
     <div className="container">
       <div id="header">
-        <h1>Finance Tracker</h1>
+        {/* the noticeable change for high distinction task */}
+        <h1>Finance Tracker v1.1.0</h1> 
         <button className="toggle" onClick={()  => setDarkMode(!darkMode)}>
           Toggle {darkMode ? "Light" : "Dark"} Mode
         </button>

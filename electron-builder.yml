@@ -17,7 +17,7 @@ win:
       arch: [x64]
     - target: msi
       arch: [x64]
-    artifactName: "${productName}-Setup-${version}.${ext}"
+  artifactName: "${productName}-Setup-${version}.${ext}"
       
 
 nsis:
@@ -49,4 +49,9 @@ linux:
     - deb
     - AppImage
   executableName: Finance Tracker 
+
+publish:
+  provider: github
+  owner: wng-mchl
+  repo: COS40006_PortfolioTask1
 
